@@ -4,6 +4,7 @@ from pwd import getpwuid
 
 class Terminals:
     
+    # FIXME: /dev/pts
     _TTY_GLOB = '/dev/tty*'
     
     @classmethod
