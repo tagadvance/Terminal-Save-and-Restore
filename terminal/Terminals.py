@@ -1,20 +1,42 @@
 import glob
-from os import stat
-from pwd import getpwuid
+from subprocess import run, PIPE
+
+from terminal.Files import Files
+
 
 class Terminals:
     
-    # FIXME: /dev/pts
-    _TTY_GLOB = '/dev/tty*'
+    @staticmethod
+    def tty():
+        """
+        Originally this was going to be used to exclude the current terminal; however, I decided to
+        use a shell script to have this script disconnect and run in the background.
+        """
+        
+        result = run(["tty"], stdout=PIPE)
+        return result.stdout.decode('utf-8').strip()
+    
+    @staticmethod
+    def logname():
+        result = run(["logname"], stdout=PIPE)
+        return result.stdout.decode('utf-8').strip()
     
     @classmethod
-    def listTerminals(cls, user=None):
-        def fileOwner(filename):
-            return getpwuid(stat(filename).st_uid).pw_name
+    def listPseudoterminalsOwnedBy(cls, user: str=None) -> list:
+        files = glob.glob("/dev/pts/*")
+        return [file for file in files if Files.owner(file) == user] if user else files
+    
+    @staticmethod
+    def restore(*, columns: int, rows: int, x: int, y: int, cwd: str, virtual_env: str):
+        args = [
+            "gnome-terminal",
+            "--geometry",
+            "{}x{}+{}+{}".format(columns, rows, x, y),
+            "--working-directory",
+            cwd
+        ]
+        print(" ".join(args))
+        run(args, stdout=PIPE)
         
-        files = glob.glob(cls._TTY_GLOB)
-        return [file for file in files if fileOwner(file) == user] if user else files
-
-if __name__ == '__main__':
-    terminals = Terminals.listTerminals('tag')
-    print(terminals)
+        # TODO: restore virtual environment
+        # TODO: restore sudo su
