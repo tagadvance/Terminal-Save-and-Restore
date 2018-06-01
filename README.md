@@ -21,6 +21,7 @@ git pull
 # Note: Leave out `--session project0` to use the default session.
 
 # Add current terminal to the project session with name task0.
+# `top` will be run after restoration.
 tsr --session project --add task0 --command top
 tsr --session project --add task1
 # List saved terminals.
@@ -32,3 +33,6 @@ tsr --session project --restore task0
 # Restore all saved terminals.
 sudo tsr --session project --restore
 ```
+
+## Compatibility
+Requires Python 3.6. Tested on Ubuntu 18.04 LTS. Currently only `gnome-terminal` is supported.
