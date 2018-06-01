@@ -28,5 +28,4 @@ if __name__ == "__main__":
             print(name)
     
     if controller.restore:
-        print(controller.restore)
         session.restore(controller.restore)
