@@ -18,20 +18,20 @@ git pull
 
 ## Usage
 ```
-# Note: Leave out `--session project0` to use the default session.
+# Note: Leave out `--session sessionName` to use the default session.
 
-# Add current terminal to the project session with name task0.
+# Add current terminal to the sessionName session with name task0.
 # `top` will be run after restoration.
-tsr --session project --add task0 --command top
-tsr --session project --add task1
+tsr --session sessionName --add task0 --command top
+tsr --session sessionName --add task1
 # List saved terminals.
-tsr --session project --list
+tsr --session sessionName --list
 # Remove terminal with name task1.
-tsr --session project --remove task1
+tsr --session sessionName --remove task1
 # Restore task0.
-tsr --session project --restore task0
+tsr --session sessionName --restore task0
 # Restore all saved terminals.
-sudo tsr --session project --restore
+sudo tsr --session sessionName --restore
 ```
 
 ## Compatibility
