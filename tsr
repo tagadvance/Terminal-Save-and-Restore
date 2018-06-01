@@ -9,6 +9,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Save and restore terminals sessions.")
     parser.add_argument("--session", default="default", help="session name (default: 'default')")
     parser.add_argument("--add", help="add terminal name")
+    parser.add_argument("--command", help="send command to terminal after restoration")
     parser.add_argument("--remove", help="remove terminal name")
     parser.add_argument("--list", action="store_true", help="list session names")
     parser.add_argument("--restore", nargs="?", const="*", help="restore session name (default: '*')")
@@ -18,6 +19,8 @@ if __name__ == "__main__":
     
     if controller.add:
         metaData = Shell().metaData()
+        if controller.command:
+        	metaData["command"] = controller.command
         session.addToSession(controller.add, metaData)
     
     if controller.remove:

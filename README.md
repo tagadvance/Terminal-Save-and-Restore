@@ -21,7 +21,7 @@ git pull
 # Note: Leave out `--session project0` to use the default session.
 
 # Add current terminal to the project session with name task0.
-tsr --session project --add task0
+tsr --session project --add task0 --command top
 tsr --session project --add task1
 # List saved terminals.
 tsr --session project --list
@@ -30,5 +30,5 @@ tsr --session project --remove task1
 # Restore task0.
 tsr --session project --restore task0
 # Restore all saved terminals.
-tsr --session project --restore
+sudo tsr --session project --restore
 ```
