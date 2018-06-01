@@ -16,11 +16,6 @@ class Terminals:
         result = run(["tty"], stdout=PIPE)
         return result.stdout.decode('utf-8').strip()
     
-    @staticmethod
-    def logname():
-        result = run(["logname"], stdout=PIPE)
-        return result.stdout.decode('utf-8').strip()
-    
     @classmethod
     def listPseudoterminalsOwnedBy(cls, user: str=None) -> list:
         files = glob.glob("/dev/pts/*")

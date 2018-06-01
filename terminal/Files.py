@@ -22,7 +22,7 @@ class Files:
         return '{}/{}'.format(tempdir, name)
     
     @staticmethod
-    def waitUntilPathExists(filePath: str, limit:timedelta=timedelta(minutes=1)):
+    def waitUntilPathExists(filePath: str, limit: timedelta=timedelta(minutes=1)):
         start = datetime.now()
         
         seconds = .1
