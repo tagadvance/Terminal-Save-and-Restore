@@ -20,7 +20,7 @@ if __name__ == "__main__":
     if controller.add:
         metaData = Shell().metaData()
         if controller.command:
-        	metaData["command"] = controller.command
+            metaData["command"] = controller.command
         session.addToSession(controller.add, metaData)
     
     if controller.remove:
