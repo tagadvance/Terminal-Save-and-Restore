@@ -1,4 +1,5 @@
 # Terminal Save and Restore
+Allow terminal position, size, current working directory, and virtual environment to be saved and restored. This is useful for preserving terminals between restarts.
 
 ## Install
 ```
