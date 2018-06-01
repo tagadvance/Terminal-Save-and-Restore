@@ -46,9 +46,11 @@ class Terminals:
             afterTerminals = cls.listPseudoterminalsOwnedBy()
             terminals = list(set(afterTerminals) - set(beforeTerminals))
             if len(terminals) == 1:
-                terminal = terminals.pop()
-                command = ". {}/bin/activate".format(virtual_env)
-                Terminal(terminal).execute(command)
+                tty = terminals.pop()
+                terminal = Terminal(tty)
+                command = "source {}/bin/activate".format(virtual_env)
+                terminal.execute(command)
+                terminal.execute("clear")
             else:
                 logging.warn("Unable to restore virtual environment due to ambiguous results!")
         

@@ -1,5 +1,6 @@
 from fcntl import ioctl
 from termios import TIOCSTI
+from typing import Optional
 
 from terminal.Files import Files
 
@@ -12,19 +13,23 @@ class Terminal:
     def exit(self):
         self.execute("exit")
     
-    def execute(self, command: str) -> str:
+    def execute(self, command: str, captureOutput: bool=False) -> Optional[str]:
         """
         Send a command to a pseudoterminal. Requires root.
         """
         
-        output = Files.tmpName()
-        command += "> {}\n".format(output)
+        if captureOutput:
+            output = Files.tmpName()
+            command += "> {}".format(output)
+        
+        command += "\n"
         
         mode = "w"
         with open(self._path, mode) as fileDescriptor:
             for c in command:
                 ioctl(fileDescriptor, TIOCSTI, c)
         
-        Files.waitUntilPathExists(output)
-        with open(output) as handle:
-            return handle.read()
+        if captureOutput:
+            Files.waitUntilPathExists(output)
+            with open(output) as handle:
+                return handle.read()
