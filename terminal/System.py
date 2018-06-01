@@ -1,7 +1,12 @@
+import os
 from subprocess import run, PIPE
 
 
 class System:
+    
+    @staticmethod
+    def isRoot():
+        return os.geteuid() == 0
     
     @staticmethod
     def logname():
