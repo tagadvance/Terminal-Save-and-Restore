@@ -5,7 +5,7 @@ Allow terminal position, size, current working directory, and virtual environmen
 ```
 mkdir ~/git
 cd ~/git
-git clone git@github.com:tagadvance/Terminal-Save-and-Restore.git
+git clone https://github.com/tagadvance/Terminal-Save-and-Restore.git
 echo "export PATH=\$PATH:~/git/Terminal-Save-and-Restore/" >> ~/.bashrc
 source ~/.bashrc
 ```
