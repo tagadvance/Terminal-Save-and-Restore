@@ -5,7 +5,7 @@ from typing import Optional
 from terminal.Files import Files
 
 
-class Terminal:
+class Pseudoterminal:
     
     def __init__(self, ttyPath: str):
         self._path = ttyPath

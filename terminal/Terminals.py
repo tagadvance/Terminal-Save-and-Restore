@@ -1,10 +1,11 @@
 import glob
 import logging
+from shlex import quote
 from subprocess import run, PIPE
 
 from terminal.Files import Files
 from terminal.System import System
-from terminal.Terminal import Terminal
+from terminal.Pseudoterminal import Pseudoterminal
 
 
 class Terminals:
@@ -55,7 +56,7 @@ class Terminals:
             "-",
             logname,
             "-c",
-            "gnome-terminal --geometry {} --working-directory '{}'".format(geometry, cwd)
+            "gnome-terminal --geometry {} --working-directory {}".format(geometry, quote(cwd))
         ]
         run(args, stdout=PIPE)
         
@@ -63,7 +64,7 @@ class Terminals:
         terminals = list(set(afterTerminals) - set(beforeTerminals))
         if len(terminals) == 1:
             tty = terminals.pop()
-            terminal = Terminal(tty)
+            terminal = Pseudoterminal(tty)
             if virtual_env:
                 cmd = "source {}/bin/activate".format(virtual_env)
                 terminal.execute(cmd)
