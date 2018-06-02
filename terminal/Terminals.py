@@ -11,15 +11,6 @@ from terminal.System import System
 
 class Terminals:
     
-    @staticmethod
-    def tty():
-        """
-        Originally this was going to be used to exclude the current terminal; however, I decided to
-        use a shell script to have this script disconnect and run in the background.
-        """
-        
-        return Shell().execute("tty")
-    
     @classmethod
     def listPseudoterminalsOwnedBy(cls, user: str=None) -> list:
         files = glob.glob("/dev/pts/*")
