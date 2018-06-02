@@ -11,9 +11,6 @@ class Pseudoterminal:
     def __init__(self, ttyPath: str):
         self._path = ttyPath
     
-    def exit(self):
-        self.execute("exit")
-    
     def execute(self, command: str, captureOutput: bool=False) -> Optional[str]:
         """
         Send a command to a pseudoterminal. Requires root privileges.
