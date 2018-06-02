@@ -4,8 +4,9 @@ from shlex import quote
 from subprocess import run, PIPE
 
 from terminal.Files import Files
-from terminal.System import System
 from terminal.Pseudoterminal import Pseudoterminal
+from terminal.Shell import Shell
+from terminal.System import System
 
 
 class Terminals:
@@ -17,8 +18,7 @@ class Terminals:
         use a shell script to have this script disconnect and run in the background.
         """
         
-        result = run(["tty"], stdout=PIPE)
-        return result.stdout.decode('utf-8').strip()
+        return Shell().execute("tty")
     
     @classmethod
     def listPseudoterminalsOwnedBy(cls, user: str=None) -> list:
