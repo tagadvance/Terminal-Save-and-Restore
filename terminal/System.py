@@ -1,7 +1,5 @@
 import os
 
-from terminal.Shell import Shell
-
 
 class System:
     
