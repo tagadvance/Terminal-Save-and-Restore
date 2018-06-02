@@ -27,7 +27,7 @@ class Terminals:
     @classmethod
     def restore(cls, *, columns: int, rows: int, x: int, y: int, cwd: str, virtual_env: str, command: str):
         isRoot = System.isRoot()
-        if isRoot:
+        if not isRoot:
             logging.warn("Must run as root to restore virtual environment and run command!, e.g. `sudo !!`")
         
         if isRoot:
