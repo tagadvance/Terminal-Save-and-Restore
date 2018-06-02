@@ -3,6 +3,7 @@ from termios import TIOCSTI
 from typing import Optional
 
 from terminal.Files import Files
+from terminal.System import System
 
 
 class Pseudoterminal:
@@ -15,8 +16,11 @@ class Pseudoterminal:
     
     def execute(self, command: str, captureOutput: bool=False) -> Optional[str]:
         """
-        Send a command to a pseudoterminal. Requires root.
+        Send a command to a pseudoterminal. Requires root privileges.
         """
+        
+        if not System.isRoot():
+            raise RuntimeError("This method requires root privileges!")
         
         if captureOutput:
             output = Files.tmpName()
