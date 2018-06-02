@@ -3,6 +3,11 @@ from subprocess import run, PIPE
 
 class Shell:
     
+    def logname(self):
+        #result = run(["logname"], stdout=PIPE)
+        #return result.stdout.decode('utf-8').strip()
+        return self.execute("echo ${SUDO_USER:-${USER}}")
+    
     def metaData(self):
         xwininfo = self._xwininfo()
         return {

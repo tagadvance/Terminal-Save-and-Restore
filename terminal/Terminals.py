@@ -49,7 +49,7 @@ class Terminals:
     def _restoreRoot(cls, columns: int, rows: int, x: int, y: int, cwd: str, virtual_env: str, command: str):
         beforeTerminals = cls.listPseudoterminalsOwnedBy()
         
-        logname = System.logname()
+        logname = Shell().logname()
         geometry = "{}x{}+{}+{}".format(columns, rows, x, y)
         args = [
             "su",

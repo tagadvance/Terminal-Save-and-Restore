@@ -2,7 +2,7 @@ import json
 import os
 from os import path
 
-from terminal.System import System
+from terminal.Shell import Shell
 from terminal.Terminals import Terminals
 
 
@@ -54,7 +54,7 @@ class Session:
     
     @classmethod
     def _configDirectory(cls) -> str:
-        logname = System.logname()
+        logname = Shell().logname()
         return cls.CONFIG_DIRECTORY.format(logname)
     
     @classmethod
