@@ -26,47 +26,49 @@ class Terminals:
     
     @classmethod
     def restore(cls, *, columns: int, rows: int, x: int, y: int, cwd: str, virtual_env: str, command: str):
-        isRoot = System.isRoot()
-        if not isRoot:
-            logging.warn("Must run as root to restore virtual environment and run command!, e.g. `sudo !!`")
+        if System.isRoot():
+            cls._restoreRoot(columns, rows, x, y, cwd, virtual_env, command)
+        else:
+            cls._restore(columns, rows, x, y, cwd, virtual_env, command)
         
-        if isRoot:
-            beforeTerminals = cls.listPseudoterminalsOwnedBy()
+    @classmethod
+    def _restore(cls, columns: int, rows: int, x: int, y: int, cwd: str, virtual_env: str, command: str):
+        logging.warn("Must run as root to restore virtual environment and run command!, e.g. `sudo !!`")
         
-        geometry = "{}x{}+{}+{}".format(columns, rows, x, y)
-        
-        if isRoot:
-            logname = System.logname()
-            args = [
-                "su",
-                "-",
-                logname,
-                "-c",
-                "gnome-terminal --geometry {} --working-directory '{}'".format(geometry, cwd)
-            ]
-        else:            
-            args = [
-                "gnome-terminal",
-                "--geometry",
-                geometry,
-                "--working-directory",
-                cwd
-            ]
+        args = [
+            "gnome-terminal",
+            "--geometry",
+            "{}x{}+{}+{}".format(columns, rows, x, y),
+            "--working-directory",
+            cwd
+        ]
         run(args, stdout=PIPE)
         
-        if isRoot:
-            afterTerminals = cls.listPseudoterminalsOwnedBy()
-            terminals = list(set(afterTerminals) - set(beforeTerminals))
-            if len(terminals) == 1:
-                tty = terminals.pop()
-                terminal = Terminal(tty)
-                if virtual_env:
-                    cmd = "source {}/bin/activate".format(virtual_env)
-                    terminal.execute(cmd)
-                    terminal.execute("clear")
-                if command:
-                    terminal.execute(command)
-            else:
-                logging.warn("Unable to restore virtual environment or run command due to ambiguous results!")
+    @classmethod
+    def _restoreRoot(cls, columns: int, rows: int, x: int, y: int, cwd: str, virtual_env: str, command: str):
+        beforeTerminals = cls.listPseudoterminalsOwnedBy()
         
-        # TODO: restore sudo su
+        logname = System.logname()
+        geometry = "{}x{}+{}+{}".format(columns, rows, x, y)
+        args = [
+            "su",
+            "-",
+            logname,
+            "-c",
+            "gnome-terminal --geometry {} --working-directory '{}'".format(geometry, cwd)
+        ]
+        run(args, stdout=PIPE)
+        
+        afterTerminals = cls.listPseudoterminalsOwnedBy()
+        terminals = list(set(afterTerminals) - set(beforeTerminals))
+        if len(terminals) == 1:
+            tty = terminals.pop()
+            terminal = Terminal(tty)
+            if virtual_env:
+                cmd = "source {}/bin/activate".format(virtual_env)
+                terminal.execute(cmd)
+                terminal.execute("clear")
+            if command:
+                terminal.execute(command)
+        else:
+            logging.warn("Unable to restore virtual environment or run command due to ambiguous results!")
