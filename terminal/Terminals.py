@@ -17,7 +17,7 @@ class Terminals:
         return [file for file in files if Files.owner(file) == user] if user else files
     
     @classmethod
-    def restore(cls, *, columns: int, rows: int, x: int, y: int, cwd: str, virtual_env: str, command: str):
+    def restore(cls, *, columns: int, rows: int, x: int, y: int, cwd: str, virtual_env: str, command: str=None):
         if System.isRoot():
             cls._restoreRoot(columns, rows, x, y, cwd, virtual_env, command)
         else:
