@@ -1,5 +1,5 @@
 # Terminal Save and Restore
-Allow terminal position, size, current working directory, and virtual environment to be saved and restored. This is useful for preserving terminals between restarts. I recommend having one session per project or workspace. Sessions are stored in `~/.config/terminal-sessions/`.
+I recommend having one session per project or workspace. Sessions are stored in `~/.config/terminal-sessions/`.
 
 ## Install
 ```
