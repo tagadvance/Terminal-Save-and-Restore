@@ -1,5 +1,6 @@
 import os
-from subprocess import run, PIPE
+
+from terminal.Shell import Shell
 
 
 class System:
@@ -11,5 +12,5 @@ class System:
     @staticmethod
     def logname():
         #result = run(["logname"], stdout=PIPE)
-        result = run("echo ${SUDO_USER:-${USER}}", shell=True, check=True, stdout=PIPE)
-        return result.stdout.decode('utf-8').strip()
+        #return result.stdout.decode('utf-8').strip()
+        return Shell().execute("echo ${SUDO_USER:-${USER}}")
