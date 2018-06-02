@@ -9,7 +9,7 @@ class Files:
     
     @staticmethod
     def owner(filePath: str) -> str:
-            return getpwuid(stat(filePath).st_uid).pw_name
+        return getpwuid(stat(filePath).st_uid).pw_name
     
     @staticmethod
     def tmpName() -> str:
