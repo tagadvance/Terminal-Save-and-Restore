@@ -1,7 +1,6 @@
 import glob
 import logging
 from subprocess import run, PIPE
-from typing import Optional
 
 from terminal.Files import Files
 from terminal.System import System
