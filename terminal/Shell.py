@@ -13,10 +13,10 @@ class Shell:
         return {
             'x': xwininfo['Absolute upper-left X'],
             'y': xwininfo['Absolute upper-left Y'],
-            'columns': self.execute("tput cols").strip(),
-            'rows': self.execute("tput lines").strip(),
-            'cwd': self.execute("pwd").strip(),
-            'virtual_env': self.execute("echo $VIRTUAL_ENV").strip(),
+            'columns': self.execute("tput cols"),
+            'rows': self.execute("tput lines"),
+            'cwd': self.execute("pwd"),
+            'virtual_env': self.execute("echo $VIRTUAL_ENV"),
             # TODO: title
         }
         
