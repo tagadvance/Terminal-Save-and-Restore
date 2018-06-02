@@ -33,13 +33,25 @@ class Terminals:
         if isRoot:
             beforeTerminals = cls.listPseudoterminalsOwnedBy()
         
-        args = [
-            "gnome-terminal",
-            "--geometry",
-            "{}x{}+{}+{}".format(columns, rows, x, y),
-            "--working-directory",
-            cwd
-        ]
+        geometry = "{}x{}+{}+{}".format(columns, rows, x, y)
+        
+        if isRoot:
+            logname = System.logname()
+            args = [
+                "su",
+                "-",
+                logname,
+                "-c",
+                "gnome-terminal --geometry {} --working-directory '{}'".format(geometry, cwd)
+            ]
+        else:            
+            args = [
+                "gnome-terminal",
+                "--geometry",
+                geometry,
+                "--working-directory",
+                cwd
+            ]
         run(args, stdout=PIPE)
         
         if isRoot:
