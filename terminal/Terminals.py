@@ -18,10 +18,8 @@ class Terminals:
     
     @classmethod
     def restore(cls, *, columns: int, rows: int, x: int, y: int, cwd: str, virtual_env: str, command: str=None):
-        if System.isRoot():
-            cls._restoreRoot(columns, rows, x, y, cwd, virtual_env, command)
-        else:
-            cls._restore(columns, rows, x, y, cwd, virtual_env, command)
+        method = cls._restoreRoot if System.isRoot() else cls._restore
+        method(columns, rows, x, y, cwd, virtual_env, command)
         
     @classmethod
     def _restore(cls, columns: int, rows: int, x: int, y: int, cwd: str, virtual_env: str, command: str):
